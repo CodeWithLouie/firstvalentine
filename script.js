@@ -38,6 +38,38 @@ function toggleMusic() {
   music.paused ? music.play() : music.pause();
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const music = document.getElementById("bgMusic");
+
+  if (!music) return;
+
+  // Restore playback position
+  const savedTime = localStorage.getItem("musicTime");
+  if (savedTime) {
+    music.currentTime = parseFloat(savedTime);
+  }
+
+  // Try autoplay
+  music.play().catch(() => {
+    // Autoplay blocked – wait for user interaction
+    const unlockMusic = () => {
+      music.play();
+      localStorage.setItem("musicAllowed", "yes");
+      document.removeEventListener("click", unlockMusic);
+    };
+
+    document.addEventListener("click", unlockMusic);
+  });
+
+  // Save time continuously
+  setInterval(() => {
+    if (!music.paused) {
+      localStorage.setItem("musicTime", music.currentTime);
+    }
+  }, 1000);
+});
+
+
 // =======================
 // FLOATING HEARTS
 // =======================
@@ -193,3 +225,4 @@ if (countdownEl) {
     countdownEl.innerText = `${d}d ${h}h ${m}m ${s}s`;
   }, 1000);
 }
+
