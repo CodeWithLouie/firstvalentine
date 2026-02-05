@@ -7,7 +7,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="center">
+  <audio id="bgMusic" autoplay loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio> 
 
+  <button onclick="document.getElementById('bgMusic').play()">
+  ▶ Play Music
+</button> 
   <div class="card">
     <h1>Restricted Access 🔐</h1>
     <p>This heart isn’t public property.</p>
@@ -19,22 +25,14 @@
     <p id="error" class="error"></p>
   </div> 
 
-  <audio id="bgMusic" autoplay loop>
-  <source src="love.mp3" type="audio/mpeg">
-</audio> 
-
-  <button onclick="document.getElementById('bgMusic').play()">
-  ▶ Play Music
-</button> 
-
 <p style="font-size: 0.8rem; opacity: 0.7;">
 Tap anywhere to begin ❤️
 </p>
 
-
 <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
