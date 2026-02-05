@@ -1,7 +1,7 @@
 // =======================
 // CONFIG — EDIT THESE
 // =======================
-const VALID_NAME = "hername";   // lowercase
+const VALID_NAME = "hername"; // lowercase
 const VALID_CODE = "secret";
 
 // =======================
@@ -14,7 +14,7 @@ function login() {
   if (name === VALID_NAME && code === VALID_CODE) {
     launchConfetti();
     setTimeout(() => {
-      window.location.href = "welcome.html";
+      go("welcome.html");
     }, 1200);
   } else {
     document.getElementById("error").innerText =
@@ -30,63 +30,46 @@ function go(page) {
 }
 
 // =======================
-// MUSIC
+// MUSIC (AUTOPLAY + PERSIST)
 // =======================
-function toggleMusic() {
-  const music = document.getElementById("bgMusic");
-  if (!music) return;
-  music.paused ? music.play() : music.pause();
-}
+let music;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const music = document.getElementById("bgMusic");
+  music = document.getElementById("bgMusic");
   if (!music) return;
 
-  // Restore playback position
   const savedTime = localStorage.getItem("musicTime");
-  if (savedTime) {
-    music.currentTime = parseFloat(savedTime);
-  }
+  if (savedTime) music.currentTime = parseFloat(savedTime);
 
-  // Attempt autoplay
   const playMusic = () => {
     music.play().then(() => {
       localStorage.setItem("musicAllowed", "true");
     }).catch(() => {});
   };
 
-  // Check if user already allowed music
   if (localStorage.getItem("musicAllowed") === "true") {
     playMusic();
   } else {
-    // Wait for first interaction
     const unlock = () => {
       playMusic();
       document.removeEventListener("click", unlock);
       document.removeEventListener("touchstart", unlock);
     };
-
     document.addEventListener("click", unlock);
     document.addEventListener("touchstart", unlock);
   }
 
-  // Save playback time continuously
   setInterval(() => {
-    if (!music.paused) {
+    if (music && !music.paused) {
       localStorage.setItem("musicTime", music.currentTime);
     }
   }, 500);
 });
 
-
-  // Save time continuously
-  setInterval(() => {
-    if (!music.paused) {
-      localStorage.setItem("musicTime", music.currentTime);
-    }
-  }, 1000);
-});
-
+function toggleMusic() {
+  if (!music) return;
+  music.paused ? music.play() : music.pause();
+}
 
 // =======================
 // FLOATING HEARTS
@@ -145,6 +128,7 @@ const resultEl = document.getElementById("result");
 const scoreText = document.getElementById("scoreText");
 
 function loadQuestion() {
+  if (!qEl) return;
   const q = quizData[qIndex];
   qEl.innerText = `Q${qIndex + 1}. ${q.q}`;
   optEl.innerHTML = "";
@@ -184,7 +168,7 @@ function showResult() {
   nextBtn.style.display = "none";
   resultEl.style.display = "block";
 
-  let label =
+  const label =
     score >= 8 ? "Elite Partner 💎" :
     score >= 6 ? "Certified Lover 😌" :
     "Passed… because I like you ❤️";
@@ -205,8 +189,9 @@ const loveNotes = [
 ];
 
 function generateLove() {
-  document.getElementById("loveText").innerText =
-    loveNotes[Math.floor(Math.random() * loveNotes.length)];
+  const el = document.getElementById("loveText");
+  if (!el) return;
+  el.innerText = loveNotes[Math.floor(Math.random() * loveNotes.length)];
 }
 
 // =======================
@@ -228,10 +213,10 @@ if (noBtn) {
 // =======================
 const countdownEl = document.getElementById("countdown");
 if (countdownEl) {
-  const date = new Date(2026, 1, 14, 19, 0).getTime();
+  const date = new Date(2026, 1, 14, 15, 0).getTime();
 
   setInterval(() => {
-    const diff = date - new Date().getTime();
+    const diff = date - Date.now();
     if (diff <= 0) {
       countdownEl.innerText = "It’s date time ❤️";
       return;
@@ -243,5 +228,3 @@ if (countdownEl) {
     countdownEl.innerText = `${d}d ${h}h ${m}m ${s}s`;
   }, 1000);
 }
-
-
