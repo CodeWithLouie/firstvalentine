@@ -1,202 +1,195 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // =============================
-  // QUESTIONS (10 TOTAL)
-  // =============================
-  const questions = [
-    {
-      question: "What does HTML stand for?",
-      answers: [
-        { text: "Hyper Text Markup Language", correct: true },
-        { text: "High Text Machine Language", correct: false },
-        { text: "Hyperlinks Text Mark Language", correct: false },
-        { text: "Home Tool Markup Language", correct: false }
-      ]
-    },
-    {
-      question: "Which language is used for styling web pages?",
-      answers: [
-        { text: "HTML", correct: false },
-        { text: "JQuery", correct: false },
-        { text: "CSS", correct: true },
-        { text: "XML", correct: false }
-      ]
-    },
-    {
-      question: "Which is NOT a JavaScript data type?",
-      answers: [
-        { text: "Number", correct: false },
-        { text: "Boolean", correct: false },
-        { text: "Float", correct: true },
-        { text: "String", correct: false }
-      ]
-    },
-    {
-      question: "Which symbol is used for comments in JavaScript?",
-      answers: [
-        { text: "//", correct: true },
-        { text: "<!-- -->", correct: false },
-        { text: "#", correct: false },
-        { text: "**", correct: false }
-      ]
-    },
-    {
-      question: "How do you declare a variable in JavaScript?",
-      answers: [
-        { text: "var", correct: false },
-        { text: "let", correct: false },
-        { text: "const", correct: false },
-        { text: "All of the above", correct: true }
-      ]
-    },
-    {
-      question: "Which company developed JavaScript?",
-      answers: [
-        { text: "Google", correct: false },
-        { text: "Microsoft", correct: false },
-        { text: "Netscape", correct: true },
-        { text: "Apple", correct: false }
-      ]
-    },
-    {
-      question: "What does DOM stand for?",
-      answers: [
-        { text: "Document Object Model", correct: true },
-        { text: "Data Object Model", correct: false },
-        { text: "Digital Output Method", correct: false },
-        { text: "Desktop Oriented Mode", correct: false }
-      ]
-    },
-    {
-      question: "Which keyword stops a loop?",
-      answers: [
-        { text: "stop", correct: false },
-        { text: "break", correct: true },
-        { text: "exit", correct: false },
-        { text: "return", correct: false }
-      ]
-    },
-    {
-      question: "Which method selects an element by ID?",
-      answers: [
-        { text: "querySelector()", correct: false },
-        { text: "getElement()", correct: false },
-        { text: "getElementById()", correct: true },
-        { text: "selectById()", correct: false }
-      ]
-    },
-    {
-      question: "JavaScript runs primarily on the…",
-      answers: [
-        { text: "Server", correct: false },
-        { text: "Browser", correct: true },
-        { text: "Database", correct: false },
-        { text: "Compiler", correct: false }
-      ]
-    }
-  ];
+// =======================
+// CONFIG — EDIT THESE
+// =======================
+const VALID_NAME = "hername";   // lowercase
+const VALID_CODE = "secret";
 
-  // =============================
-  // STATE
-  // =============================
-  let currentQuestionIndex = 0;
-  let score = 0;
-  let answered = false;
+// =======================
+// LOGIN
+// =======================
+function login() {
+  const name = document.getElementById("name")?.value.toLowerCase();
+  const code = document.getElementById("code")?.value;
 
-  // =============================
-  // ELEMENTS
-  // =============================
-  const questionEl = document.getElementById("question");
-  const answersEl = document.getElementById("answers");
-  const nextBtn = document.getElementById("next-btn");
-  const resultEl = document.getElementById("result");
-
-  // =============================
-  // LOAD QUESTION
-  // =============================
-  function loadQuestion() {
-    answered = false;
-    nextBtn.style.display = "none";
-    answersEl.innerHTML = "";
-
-    const currentQuestion = questions[currentQuestionIndex];
-    questionEl.textContent = `Question ${currentQuestionIndex + 1}: ${currentQuestion.question}`;
-
-    currentQuestion.answers.forEach(answer => {
-      const btn = document.createElement("button");
-      btn.textContent = answer.text;
-      btn.classList.add("answer-btn");
-
-      btn.addEventListener("click", () => {
-        if (answered) return;
-        answered = true;
-
-        if (answer.correct) {
-          btn.classList.add("correct");
-          score++;
-        } else {
-          btn.classList.add("wrong");
-        }
-
-        // Show correct answer
-        Array.from(answersEl.children).forEach(b => {
-          if (
-            currentQuestion.answers.find(a => a.text === b.textContent).correct
-          ) {
-            b.classList.add("correct");
-          }
-          b.disabled = true;
-        });
-
-        nextBtn.style.display = "block";
-      });
-
-      answersEl.appendChild(btn);
-    });
+  if (name === VALID_NAME && code === VALID_CODE) {
+    launchConfetti();
+    setTimeout(() => {
+      window.location.href = "welcome.html";
+    }, 1200);
+  } else {
+    document.getElementById("error").innerText =
+      "Access denied. This heart isn’t public property 😌";
   }
+}
 
-  // =============================
-  // NEXT / FINISH
-  // =============================
-  nextBtn.addEventListener("click", () => {
-    currentQuestionIndex++;
+// =======================
+// NAVIGATION
+// =======================
+function go(page) {
+  window.location.href = page;
+}
 
-    if (currentQuestionIndex < questions.length) {
-      loadQuestion();
-    } else {
-      showResults();
-    }
+// =======================
+// MUSIC
+// =======================
+function toggleMusic() {
+  const music = document.getElementById("bgMusic");
+  if (!music) return;
+  music.paused ? music.play() : music.pause();
+}
+
+// =======================
+// FLOATING HEARTS
+// =======================
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 10 + 16 + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 800);
+
+// =======================
+// CONFETTI
+// =======================
+function launchConfetti() {
+  for (let i = 0; i < 40; i++) {
+    const confetti = document.createElement("div");
+    confetti.innerText = "💖";
+    confetti.style.position = "fixed";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.top = "-20px";
+    confetti.style.animation = "floatDown 2s ease-out forwards";
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 2000);
+  }
+}
+
+// =======================
+// LOVE QUIZ (10 QUESTIONS)
+// =======================
+const quizData = [
+  { q: "Who fell first?", o: ["You 😏", "Me 😌"], a: 0 },
+  { q: "Our love language?", o: ["Food 🍕", "Quality Time ❤️"], a: 1 },
+  { q: "Who is always late?", o: ["You 😅", "Me 😬"], a: 0 },
+  { q: "Best kind of date?", o: ["Movie 🎬", "Deep talks 🌙"], a: 1 },
+  { q: "Who steals food?", o: ["You 👀", "Me 🙃"], a: 0 },
+  { q: "Who is stubborn?", o: ["You 😤", "Me 😇"], a: 0 },
+  { q: "Our vibe?", o: ["Soft 💕", "Cute chaos 😈"], a: 1 },
+  { q: "Who texts first?", o: ["You 🥺", "Me 🥰"], a: 1 },
+  { q: "Perfect night?", o: ["Netflix 🍿", "Just us ❤️"], a: 1 },
+  { q: "Choose me again?", o: ["Always 💖", "Every lifetime ♾️"], a: 1 }
+];
+
+let qIndex = 0;
+let score = 0;
+
+const qEl = document.getElementById("question");
+const optEl = document.getElementById("options");
+const fbEl = document.getElementById("feedback");
+const nextBtn = document.getElementById("nextBtn");
+const resultEl = document.getElementById("result");
+const scoreText = document.getElementById("scoreText");
+
+function loadQuestion() {
+  const q = quizData[qIndex];
+  qEl.innerText = `Q${qIndex + 1}. ${q.q}`;
+  optEl.innerHTML = "";
+  fbEl.innerText = "";
+  nextBtn.style.display = "none";
+
+  q.o.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.innerText = text;
+    btn.onclick = () => selectAnswer(i);
+    optEl.appendChild(btn);
   });
+}
 
-  // =============================
-  // RESULTS
-  // =============================
-  function showResults() {
-    document.getElementById("quiz-container").style.display = "none";
-
-    const passed = score >= 7;
-
-    resultEl.innerHTML = `
-      <h2>🎉 Quiz Completed!</h2>
-      <p>Your Score: <strong>${score} / ${questions.length}</strong></p>
-      <p>${passed ? "🔥 You smashed it!" : "😅 Not bad, try again!"}</p>
-      ${
-        passed
-          ? `<button id="continue-btn">You passed, continue 🚀</button>`
-          : `<button onclick="location.reload()">Retry Quiz</button>`
-      }
-    `;
-
-    const continueBtn = document.getElementById("continue-btn");
-    if (continueBtn) {
-      continueBtn.addEventListener("click", () => {
-        alert("Welcome to the next level 😎");
-        // window.location.href = "nextpage.html";
-      });
-    }
+function selectAnswer(i) {
+  if (i === quizData[qIndex].a) {
+    score++;
+    fbEl.innerText = "Correct 😏 You know us well ❤️";
+  } else {
+    fbEl.innerText = "Hmm… interesting choice 😂";
   }
+  Array.from(optEl.children).forEach(b => b.disabled = true);
+  nextBtn.style.display = "block";
+}
 
-  // =============================
-  // INIT
-  // =============================
-  loadQuestion();
-});
+function nextQuestion() {
+  qIndex++;
+  if (qIndex < quizData.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  qEl.style.display = optEl.style.display = fbEl.style.display = "none";
+  nextBtn.style.display = "none";
+  resultEl.style.display = "block";
+
+  let label =
+    score >= 8 ? "Elite Partner 💎" :
+    score >= 6 ? "Certified Lover 😌" :
+    "Passed… because I like you ❤️";
+
+  scoreText.innerText = `You scored ${score}/10 🎉\n${label}`;
+}
+
+if (qEl) loadQuestion();
+
+// =======================
+// LOVE GENERATOR
+// =======================
+const loveNotes = [
+  "System update: You are still my favorite human.",
+  "Error 404: Stopped loving you not found.",
+  "Data analysis complete. I choose you.",
+  "Warning: You cause happiness overload."
+];
+
+function generateLove() {
+  document.getElementById("loveText").innerText =
+    loveNotes[Math.floor(Math.random() * loveNotes.length)];
+}
+
+// =======================
+// RUNNING NO BUTTON
+// =======================
+const noBtn = document.getElementById("noBtn");
+if (noBtn) {
+  const move = () => {
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.random() * 70 + "vw";
+    noBtn.style.top = Math.random() * 70 + "vh";
+  };
+  noBtn.addEventListener("mouseover", move);
+  noBtn.addEventListener("touchstart", move);
+}
+
+// =======================
+// COUNTDOWN TIMER
+// =======================
+const countdownEl = document.getElementById("countdown");
+if (countdownEl) {
+  const date = new Date(2026, 1, 14, 19, 0).getTime();
+
+  setInterval(() => {
+    const diff = date - new Date().getTime();
+    if (diff <= 0) {
+      countdownEl.innerText = "It’s date time ❤️";
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff / 3600000) % 24;
+    const m = Math.floor(diff / 60000) % 60;
+    const s = Math.floor(diff / 1000) % 60;
+    countdownEl.innerText = `${d}d ${h}h ${m}m ${s}s`;
+  }, 1000);
+}
