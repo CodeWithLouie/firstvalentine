@@ -8,25 +8,22 @@
 </head>
 <body class="center">
 
-  <div class="card">
-    <h2>Love Quiz 💕</h2>
-    <p id="question"></p>
+<div class="card">
+  <h2>Love Quiz 💕</h2>
 
-    <div id="options"></div>
+  <p id="question"></p>
+  <div id="options"></div>
+  <p id="feedback"></p>
 
-    <p id="feedback"></p>
+  <button id="nextBtn" onclick="nextQuestion()" style="display:none;">
+    Next 💖
+  </button>
 
-    <button id="nextBtn" onclick="nextQuestion()" style="display:none;">
-      Next 💖
-    </button>
-
-    <div id="result" style="display:none;">
-      <h3 id="scoreText"></h3>
-      <button onclick="go('love-ai.html')">
-        You Passed ❤️ Continue
-      </button>
-    </div>
+  <div id="result" style="display:none;">
+    <h3 id="scoreText"></h3>
+    <button onclick="go('love-ai.html')">You Passed ❤️ Continue</button>
   </div>
+</div>
 
 <script src="script.js"></script>
 </body>
