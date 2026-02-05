@@ -6,30 +6,31 @@
   <title>It’s a Date 🎬</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="center">
-<audio id="bgMusic" loop>
-  <source src="love.mp3" type="audio/mpeg">
-</audio>
-<div class="card"> 
-  
-  <h1>It’s a Date 🎭</h1>
-  <p>Taking somewhere new </p>
 
-  <p><strong>🎬 Movie:</strong> Your Choice</p>
-  <p><strong>📍 Venue:</strong> Cinema</p>
-  <p><strong>📅 Date:</strong> Valentine’s Day</p>
-  <p><strong>⏰ Time:</strong> 3:00 PM</p>
+  <!-- Background Music -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
 
-  <h2>Countdown ⏳</h2>
-  <p id="countdown" class="countdown-text">Loading…</p>
+  <!-- Date Card -->
+  <div class="card">
+    <h1>It’s a Date 🎭</h1>
+    <p>Taking you somewhere new ✨</p>
 
-  <button onclick="alert('See you there ❤️')">Say Yes 💖</button>
-  <button id="noBtn">Say No 😈</button>
-</div>
+    <p><strong>🎬 Movie:</strong> Your Choice</p>
+    <p><strong>📍 Venue:</strong> Cinema</p>
+    <p><strong>📅 Date:</strong> Valentine’s Day</p>
+    <p><strong>⏰ Time:</strong> 3:00 PM</p>
 
-<script src="script.js"></script>
+    <h2>Countdown ⏳</h2>
+    <p id="countdown" class="countdown-text">Loading…</p>
+
+    <button onclick="acceptDate()">Say Yes 💖</button>
+    <button id="noBtn">Say No 😈</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
-
-
