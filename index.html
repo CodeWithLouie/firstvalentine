@@ -17,9 +17,18 @@
 
     <button onclick="login()">Unlock ❤️</button>
     <p id="error" class="error"></p>
-  </div>
+  </div> 
+
+  <audio id="bgMusic" autoplay loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio> 
+
+  <button onclick="document.getElementById('bgMusic').play()">
+  ▶ Play Music
+</button>
 
 <script src="script.js"></script>
 </body>
 </html>
+
 
