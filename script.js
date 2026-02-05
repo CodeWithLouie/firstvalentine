@@ -19,9 +19,139 @@ function go(page) {
   window.location.href = page;
 }
 
-// QUIZ
-function answer() {
-  alert("Noted 😏");
+// =======================
+// LOVE QUIZ LOGIC (10 QUESTIONS)
+// =======================
+
+const quizData = [
+  {
+    q: "Who fell first?",
+    options: ["You 😏", "Me 😌"],
+    answer: 0
+  },
+  {
+    q: "Our love language?",
+    options: ["Food 🍕", "Quality Time ❤️"],
+    answer: 1
+  },
+  {
+    q: "Who is always late?",
+    options: ["You 😅", "Me 😬"],
+    answer: 0
+  },
+  {
+    q: "Best kind of date?",
+    options: ["Movie night 🎬", "Talking till midnight 🌙"],
+    answer: 1
+  },
+  {
+    q: "Who steals food?",
+    options: ["You 👀", "Me 🙃"],
+    answer: 0
+  },
+  {
+    q: "Who is more stubborn?",
+    options: ["You 😤", "Me 🤐"],
+    answer: 0
+  },
+  {
+    q: "Our vibe together?",
+    options: ["Soft & Sweet 💕", "Chaos but cute 😈"],
+    answer: 1
+  },
+  {
+    q: "Who says 'I miss you' more?",
+    options: ["You 🥺", "Me 🥰"],
+    answer: 1
+  },
+  {
+    q: "Our perfect evening?",
+    options: ["Movies & snacks 🍿", "Just us talking ❤️"],
+    answer: 1
+  },
+  {
+    q: "Would you choose me again?",
+    options: ["Always 💖", "Every lifetime ♾️"],
+    answer: 1
+  }
+];
+
+let currentQ = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const feedbackEl = document.getElementById("feedback");
+const nextBtn = document.getElementById("nextBtn");
+const resultEl = document.getElementById("result");
+const scoreText = document.getElementById("scoreText");
+
+function loadQuestion() {
+  const current = quizData[currentQ];
+  questionEl.innerText = `Q${currentQ + 1}. ${current.q}`;
+  optionsEl.innerHTML = "";
+  feedbackEl.innerText = "";
+  nextBtn.style.display = "none";
+
+  current.options.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = opt;
+    btn.onclick = () => selectAnswer(index);
+    optionsEl.appendChild(btn);
+  });
+}
+
+function selectAnswer(selected) {
+  const correct = quizData[currentQ].answer;
+
+  if (selected === correct) {
+    score++;
+    feedbackEl.innerText = "Correct 😏 You know us well ❤️";
+  } else {
+    feedbackEl.innerText = "Hmm… interesting choice 😂";
+  }
+
+  // Disable buttons after answer
+  Array.from(optionsEl.children).forEach(btn => btn.disabled = true);
+
+  nextBtn.style.display = "block";
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ < quizData.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  questionEl.style.display = "none";
+  optionsEl.style.display = "none";
+  feedbackEl.style.display = "none";
+  nextBtn.style.display = "none";
+
+  resultEl.style.display = "block";
+
+  let message = "";
+  if (score >= 8) {
+    message = "Elite Partner Level 💎";
+  } else if (score >= 6) {
+    message = "Certified Lover 😌";
+  } else {
+    message = "Still Passed… because I like you ❤️";
+  }
+
+  scoreText.innerText =
+    `You scored ${score} / 10 🎉\n${message}`;
+}
+
+// Auto-load when page opens
+if (questionEl) {
+  loadQuestion();
+}
+
 }
 
 // LOVE GENERATOR
@@ -103,3 +233,4 @@ if (countdownEl) {
     countdownEl.innerText = `${d}d ${h}h ${m}m ${s}s`;
   }, 1000);
 }
+
