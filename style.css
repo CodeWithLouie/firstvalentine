@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   background: #FFF8F5;
   color: #2E2E2E;
   height: 100vh;
@@ -16,9 +16,9 @@ body {
   background: #fff;
   padding: 30px;
   width: 90%;
-  max-width: 400px;
-  text-align: center;
+  max-width: 420px;
   border-radius: 14px;
+  text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
@@ -26,18 +26,15 @@ h1, h2 {
   color: #C62828;
 }
 
-input {
+input, button {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
   background: #C62828;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -49,7 +46,6 @@ button:hover {
 
 .error {
   color: #C62828;
-  font-size: 0.9rem;
 }
 
 .music-btn {
@@ -69,12 +65,15 @@ button:hover {
   color: #C62828;
 }
 
+#options button {
+  margin-bottom: 8px;
+}
+
 .heart {
   position: fixed;
   bottom: -10px;
-  font-size: 20px;
-  animation: floatUp 6s linear infinite;
   opacity: 0.6;
+  animation: floatUp 6s linear infinite;
 }
 
 @keyframes floatUp {
