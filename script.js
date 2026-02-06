@@ -235,3 +235,48 @@ function acceptDate() {
     window.location.href = "valentine.html";
   }, 800);
 }
+
+// =======================
+// VALENTINE ANIMATION
+// =======================
+const herName = "Chinenye ❤️"; // <-- EDIT NAME HERE
+
+const nameEl = document.getElementById("nameText");
+const heartEl = document.getElementById("bigHeart");
+
+if (nameEl && heartEl) {
+  animateName();
+  explodeHeart();
+}
+
+// Letter-by-letter animation
+function animateName() {
+  let i = 0;
+  nameEl.innerText = "";
+
+  const interval = setInterval(() => {
+    nameEl.innerText += herName[i];
+    i++;
+    if (i >= herName.length) clearInterval(interval);
+  }, 120);
+}
+
+// Heart explosion
+function explodeHeart() {
+  setTimeout(() => {
+    for (let i = 0; i < 20; i++) {
+      const mini = document.createElement("div");
+      mini.className = "mini-heart";
+      mini.innerText = "❤️";
+
+      mini.style.left = heartEl.offsetLeft + 40 + "px";
+      mini.style.top = heartEl.offsetTop + 40 + "px";
+      mini.style.fontSize = Math.random() * 16 + 14 + "px";
+
+      document.body.appendChild(mini);
+
+      setTimeout(() => mini.remove(), 1500);
+    }
+  }, 600);
+}
+
