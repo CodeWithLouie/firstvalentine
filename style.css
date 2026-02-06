@@ -124,3 +124,26 @@ pre {
   input, button { padding: 10px; font-size: 0.95rem; }
   .music-btn { width: 45px; height: 45px; font-size: 18px; }
 }
+
+.valentine-card {
+  padding: 40px 30px;
+}
+
+.big-heart {
+  font-size: 120px;
+  animation: pulse 1.5s infinite;
+  margin-bottom: 10px;
+}
+
+.valentine-text {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: #C62828;
+  margin-top: 10px;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
