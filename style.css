@@ -147,3 +147,33 @@ pre {
   50% { transform: scale(1.15); }
   100% { transform: scale(1); }
 }
+#nameText {
+  font-size: 1.8rem;
+  color: #C62828;
+  margin: 10px 0 15px;
+  min-height: 2.2rem;
+}
+
+/* Mini exploding hearts */
+.mini-heart {
+  position: absolute;
+  animation: burst 1.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes burst {
+  0% {
+    transform: translate(0,0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform:
+      translate(
+        calc(-50px + 100px * random()),
+        calc(-50px + 100px * random())
+      )
+      scale(0.5);
+    opacity: 0;
+  }
+}
+
